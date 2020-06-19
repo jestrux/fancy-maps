@@ -14,9 +14,9 @@ const PickCity = ({onCityClick}) => {
 
     return (
         <div id="PickCity" className="h-full flex flex-col">
-            <div className="border-b border-grey-500 py-2 px-3">
+            <div className="border-b border-grey-700 py-2 px-3">
                 <h1 className="text-xl mb-1">Pick A City</h1>
-                <input className="w-full p-2 px-3 mb-1" type="text" placeholder="Search cities, E.g. Nashville" 
+                <input type="text" placeholder="Search cities, E.g. Nashville" 
                     onChange={({target}) => setSearchQuery(target.value)}
                 />
             </div>
@@ -26,17 +26,19 @@ const PickCity = ({onCityClick}) => {
                 </p>
             )}
             <div className="overflow-y-auto flex-1">
-                <div className="mb-1 p-3 grid grid-cols-2 gap-3" style={{gridAutoRows: "max-content"}}>
+                <div className="mb-1 p-2 flex flex-wrap" style={{gridAutoRows: "max-content"}}>
                     {
                         filteredCityNames.map(city => (
-                            <div className="cursor-pointer city-item text-center group"
-                                onClick={() => onCityClick({name: city, image: cities[city]})}
-                            >
-                                <div className="image relative">
-                                    <img className="absolute w-full h-full" 
-                                        src={cities[city]} loading="lazy" alt="..." />
+                            <div className="p-2" style={{width: "50%"}}>
+                                <div className="cursor-pointer hover:opacity-50 city-item text-center group"
+                                    onClick={() => onCityClick({name: city, image: cities[city]})}
+                                >
+                                    <div className="image relative">
+                                        <img className="absolute w-full h-full" 
+                                            src={cities[city]} loading="lazy" alt="..." />
+                                    </div>
+                                    <p>{city.split(", ")[0]}</p>
                                 </div>
-                                <p>{city.split(", ")[0]}</p>
                             </div>
                         ))
                     }
