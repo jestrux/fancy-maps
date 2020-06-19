@@ -33,6 +33,7 @@ module.exports = {
         ]
     },
     externals: {
-        scenegraph: "scenegraph"
+        scenegraph: "scenegraph",
+        uxp: "uxp",
     }
 };

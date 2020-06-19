@@ -1,5 +1,6 @@
 const React = require('react');
 const { useRef, useEffect } = React;
+const { getMapUrl } = require("../../utils");
 require('./styles-new.css');
 
 function resizeImg(width, height) {
@@ -8,7 +9,9 @@ function resizeImg(width, height) {
     var aspectW = width / maxWidth;
     var aspectH = height / maxHeight;
 
-    let scaledDimensions = {};
+    let scaledDimensions = {
+        w: width, h: height
+    };
 
     if (aspectW > 1 || aspectH > 1) {
         if (aspectW > aspectH) {
@@ -26,11 +29,7 @@ function resizeImg(width, height) {
 
 const Preview = ({mapLocation, zoom, type, width, height}) => {
     const mapImage = useRef(null);
-    
-    let url = "https://www.mapquestapi.com/staticmap/v5/map?key=WeIoVZDtlQwX3HwGpXiNjk12Ca9eQJUm";
-    url += `&center=${encodeURIComponent(mapLocation)}`;
-    url += `&zoom=${parseInt(zoom)}&type=${type}`;
-    url += `&size=${width},${height}`;
+    const url = getMapUrl({mapLocation, zoom, type, width, height});
 
     useEffect(() => {
         if(mapLocation && mapLocation.length && mapImage && mapImage.current){
