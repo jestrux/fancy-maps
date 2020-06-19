@@ -1,7 +1,7 @@
 const reactShim = require("./react-shim");
 const React = require("react");
 const ReactDOM = require("react-dom");
-const App = require("./HelloForm.jsx")
+const App = require("./App/index.jsx");
 
 function main(selection) {
     let dialog;
@@ -9,6 +9,7 @@ function main(selection) {
     function getDialog() {
         if (dialog == null) {
             dialog = document.createElement("dialog");
+            dialog.style.padding = "0";
             ReactDOM.render(<App dialog={dialog} selection={selection} />, dialog);
         }
         return dialog

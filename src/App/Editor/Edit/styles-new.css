@@ -1,0 +1,10 @@
+#EditMap{
+    background: inherit;
+}
+
+.city-preview .image{
+    background: #ddd;
+    flex-shrink: 0;
+    height: 50px;
+    width: 50px;
+}

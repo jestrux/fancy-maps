@@ -1,0 +1,13 @@
+.city-item:hover{
+    opacity: 0.5;
+}
+
+.city-item .image{
+    background: #ddd;
+    padding-bottom: 60%;
+}
+
+.city-item .image,
+.city-item .image img{
+    border-radius: 5px;
+}
