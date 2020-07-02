@@ -2,14 +2,15 @@ const UI = require("./ui/index");
 
 const initialState = {
     currentScreen: "pick",
-    selectedLocation: "",
+    selectedLocation: "New York",
     fetchingLocation: false,
     fetchLocationError: false,
     mapType: "light",
-    zoomLevel: 1,
+    zoomLevel: 8,
     mapImageUrl: "",
-    selectionWidth: 5,
-    selectionHeight: 0,
+    width: 150,
+    height: 90,
+    loading: false
 };
 
 let state = {};
@@ -37,20 +38,26 @@ function setState(...args) {
 function update(selection) {
     const { Rectangle } = require("scenegraph");
     const itemSelected = selection && selection.items.length > 0;
-    
+    const selectionIsValid = itemSelected && selection.items[0] instanceof Rectangle;
+
     setState({
         itemSelected,
-        selectionIsValid: itemSelected && selection.items[0] instanceof Rectangle
+        selectionIsValid
     });
 
     if(!state.currentScreen){
         setState(initialState);
     }
+
+    if(itemSelected){
+        const { width, height } = selection.items[0];
+        setState({width, height});
+    }
 }
 
 function create({onApply}){
     appUI = new UI({
-        state,
+        state: initialState,
         setState,
         onApply: _ => onApply(state)
     });
@@ -60,5 +67,6 @@ function create({onApply}){
 
 module.exports = {
     update, 
-    create
+    create,
+    setState
 }
