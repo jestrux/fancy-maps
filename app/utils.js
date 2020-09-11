@@ -202,7 +202,22 @@ class storageHelper {
     }
 }
 
-function getMapUrl({selectedLocation, zoomLevel, mapType, width, height}){
+function getMapUrl({selectedLocation, zoomLevel, mapType, width, height, markerColor}){
+    /*
+    if(!this.data.coordinates)
+        return null;
+    const long = this.data.coordinates[0];
+    const lat = this.data.coordinates[1];
+    const zoom = 11.5;
+    const bearing = 0;
+    const pitch = 60;
+    const width = 200;
+    const height = 150;*/
+    // const token = "pk.eyJ1IjoiamVzdHJ1eCIsImEiOiJja2RwbTZjZWcyM2xoMnlsY2pqaWM5czV4In0.5a8wiZC7EHZ1PWoDWzYjMQ";
+    // const style = "styles/v1/mapbox/outdoors-v11";
+    // const marker = markerColor && markerColor.length ? `/pin-s-marker+${markerColor.replace('#', '')}(${long},${lat})` : '';
+    // const url = `https://api.mapbox.com/${style}/static${marker}/${long},${lat},${zoom},${bearing},${pitch}/${width}x${height}?access_token=${token}`;
+
     let url = "https://www.mapquestapi.com/staticmap/v5/map?key=WeIoVZDtlQwX3HwGpXiNjk12Ca9eQJUm";
     url += `&center=${encodeURIComponent(selectedLocation)}`;
     url += `&zoom=${parseInt(zoomLevel)}&type=${mapType}`;
