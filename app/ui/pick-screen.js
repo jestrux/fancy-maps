@@ -6,8 +6,8 @@ module.exports = `
             Travel to a surprise location, choose from popular destinations, or enter a specific address / city to load in a map.
         </p>
 
-        <div class="button large mb-3" uxp-variant="cta">
-            Surprise destinations
+        <div class="button large mb-3" uxp-variant="cta" @click="pickSurpriseDestination">
+            Surprise destination
         </div>
 
         <div class="mt-3">

@@ -1,5 +1,6 @@
 const CSS = require("./css");
 const pickScreen = require("./pick-screen");
+const cities = require("./cities");
 const { getMapUrl } = require("../utils");
 const customizeScreen = require("./customize-screen");
 
@@ -41,6 +42,16 @@ function UI({state, setState, onApply}) {
         onApply,
         submitLocation: () => {
             setState('currentScreen', 'customize');
+        },
+        pickSurpriseDestination: () => {
+            function shuffle(array) {
+                return [...array].sort(_ => Math.random() - 0.5);
+            }
+
+            setState({
+                'selectedLocation': shuffle(cities)[0],
+                'currentScreen': 'customize',
+            });
         },
         changeLocation: () => {
             setState('currentScreen', 'pick');
