@@ -10,7 +10,7 @@ module.exports = `
             <h1 x-text="selectedLocation"> </h1>
         </div>
 
-        <img id="mapPreview" alt="..." />
+        <img id="mapPreview" alt="..." x-src="mapImageUrl" />
 
         <div id="zoomLevel">
             <label>ZOOM LEVEL</label>
@@ -37,15 +37,12 @@ module.exports = `
         <div id="mapTypes" class="row">
             <div class="map-type" id="mapTypeLight" @click="setState('mapType', 'light')">
                 <img src="images/map-light.png" />
-                <img src="images/shadow.png" />
             </div>
             <div class="map-type" id="mapTypeDark" @click="setState('mapType', 'dark')">
                 <img src="images/map-dark.png" />
-                <img src="images/shadow.png" />
             </div>
             <div class="map-type" id="mapTypeSat" @click="setState('mapType', 'sat')">
                 <img src="images/map-sat.png" />
-                <img src="images/shadow.png" />
             </div>
         </div>
 

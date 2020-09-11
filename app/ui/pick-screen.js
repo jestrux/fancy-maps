@@ -1,6 +1,31 @@
 module.exports = `
     <div id="pickScreen">
-        <form class="row break" method="dialog" @submit="submitLocation">
+        <h2>Where are we travelling?</h2>
+
+        <p class="mx-0 mt-1 text-md opacity-65">
+            Travel to a surprise location, choose from popular destinations, or enter a specific address / city to load in a map.
+        </p>
+
+        <div class="button large mb-3" uxp-variant="cta">
+            Surprise destinations
+        </div>
+
+        <div class="mt-3">
+            <hr class="mx-0" />
+        </div>
+
+        <h2 class="mt-3">Popular destinations</h2>
+        <div id="popularDestinations" class="mt-3">
+            
+        </div>
+
+        <div class="mt-2">
+            <hr class="mx-0" />
+        </div>
+
+        <h2 class="mt-3">Let's get specific</h2>
+
+        <form class="row break mt-3" method="dialog" @submit="submitLocation">
             <input id="locationInput" placeholder="Enter location" 
                 x-model="selectedLocation"
             />

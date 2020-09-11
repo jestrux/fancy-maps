@@ -20,7 +20,7 @@ function UI({state, setState, onApply}) {
 
             <div id="loader">
                 <div id="loaderContent" class="text-center">
-                    <img width="80px" src="images/loader.png" alt="..." />
+                    <img width="40px" src="images/loader.png" alt="..." />
                     <p>
                         Heading to your destination...
                     </p>
@@ -56,6 +56,36 @@ function UI({state, setState, onApply}) {
     for (const [key, value] of Object.entries(this.state)) {
         this.update(key, value);
     }
+
+    setTimeout(() => {
+        this.setupPopularCities();
+    }, 70);
+}
+
+UI.prototype.setupPopularCities = function(){
+    const popularCities = [
+        "Tokyo", "Barcelona", "Paris",
+        "Bali", "Brisbane", "Dubai", 
+        "New York", "Nairobi", "Sao Paulo"
+    ];
+
+    const popularDestinations = document.querySelector("#popularDestinations");
+
+    popularCities.forEach(city => {
+        const destination = document.createElement("div");
+        destination.className = "popular-city flex relative mb-3";
+        destination.innerHTML = `
+            <img src="images/cities/${city.toLowerCase().replace(" ", "-")}.png" />
+            <span class="absolute inset-0 flex center-center z-10 m-auto">${city.toUpperCase()}</span>
+        `;
+        destination.onclick = () => {
+            this.methods.setState({
+                'selectedLocation': city,
+                'currentScreen': 'customize'
+            });
+        }
+        popularDestinations.appendChild(destination);
+    });
 }
 
 UI.prototype.setupEventListeners = function(){
@@ -77,7 +107,7 @@ UI.prototype.setupEventListeners = function(){
 }
 
 UI.prototype.applyDataBinding = function(key, value){
-    const matchingNodes = Array.from(this.panel.querySelectorAll(`[x-model="${key}"], [x-text="${key}"]`));
+    const matchingNodes = Array.from(this.panel.querySelectorAll(`[x-model="${key}"], [x-text="${key}"], [x-src="${key}"]`));
     
     if(matchingNodes.length){
         matchingNodes.forEach(node => {
@@ -85,9 +115,15 @@ UI.prototype.applyDataBinding = function(key, value){
                 node.value = value;
             else if(node.hasAttribute('x-text'))
                 node.textContent = value;
+            else if(node.hasAttribute('x-src')){
+                node.src = "";
+
+                setTimeout(() => {
+                    node.src = value;
+                }, 10);
+            }
         });
     }
-
 
     this.state[key] = value;
 
@@ -96,17 +132,7 @@ UI.prototype.applyDataBinding = function(key, value){
     if(urlDeps.includes(key)){
         const {selectedLocation, zoomLevel, mapType} = this.state;
         const url = getMapUrl({selectedLocation, zoomLevel, mapType, width: 400, height: 300});
-        const mapPreview = document.querySelector("#mapPreview");
-
-        if(!mapPreview.src || !mapPreview.src.length)
-            mapPreview.src = url;
-        else{
-            mapPreview.src = "";
-
-            setTimeout(() => {
-                mapPreview.src = url;
-            }, 10);
-        }
+        this.methods.setState('mapImageUrl', url);
     }
 }
 

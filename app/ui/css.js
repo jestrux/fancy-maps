@@ -3,17 +3,134 @@ module.exports = `
         *{
             font-family: 'San Francisco', 'Segoe UI', sans-serif;
         }
-        
-        .break {
-            flex-wrap: wrap;
+
+        .flex{
+            display: flex;
+        }
+
+        .center-center{
+            align-items: center;
+            justify-content: center;
+        }
+
+        .relative{
+            position: relative;
+        }
+
+        .absolute{
+            position: absolute;
+        }
+
+        .inset-0{
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .z-10{
+            z-index: 10;
+        }
+
+        .p-0{
+            padding: 0;
+        }
+
+        .px-0{
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .m-auto{
+            margin: auto;
+        }
+
+        .m-0{
+            margin: 0;
+        }
+
+        .mx-0{
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .mt-0{
+            margin-top: 0;
+        }
+
+        .mt-1{
+            margin-top: 0.25rem;
+        }
+
+        .mt-2{
+            margin-top: 0.4rem;
+        }
+
+        .mt-3{
+            margin-top: 0.8rem;
+        }
+
+        .mb-1{
+            margin-bottom: 0.25rem;
+        }
+
+        .mb-2{
+            margin-bottom: 0.4rem;
+        }
+
+        .mb-3{
+            margin-bottom: 0.8rem;
+        }
+
+        .opacity-65{
+            opacity: 0.65;
+        }
+
+        .text-md{
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .text-lg{
+            font-size: 1rem;
         }
         
         .text-center {
             text-align: center;
         }
+
+        .break {
+            flex-wrap: wrap;
+        }
         
         input, button{
             margin: 0;
+        }
+
+        #popularDestinations{
+            max-height: 360px;
+            overflow-y: auto;
+        }
+
+        .popular-city{
+            color: white;
+            font-size: 1.7rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .popular-city:hover{
+            opacity: 0.6;
+        }
+
+        .popular-city img{
+            width: 100%;
+        }
+
+        #locationInput{
+            background: #fff;
+            margin-right: 7px;
+            flex: 1;
         }
 
         .row input{
@@ -47,7 +164,7 @@ module.exports = `
 
         #loaderContent p{
             margin: 1.3rem 0;
-            font-size: 1.9rem;
+            font-size: 1.2rem;
             line-height: 1.3em;
         }
 
@@ -67,8 +184,8 @@ module.exports = `
         }
         
         h2{
-            font-size: 1.18rem;
-            font-weight: bold;
+            font-size: 1.05rem;
+            font-weight: 600;
             color: #3F3F3F;
             margin: 0;
             letter-spacing: -0.02em;
@@ -110,10 +227,9 @@ module.exports = `
         }
 
         .button[uxp-variant="cta"].large{
-            font-size: 18px;
-            font-weight: bold;
-            height: 40px;
-            line-height: 20px;
+            font-size: 15px;
+            height: 36px;
+            line-height: 18px;
             border-radius: 20px;
         }
 
@@ -208,14 +324,6 @@ module.exports = `
             margin-right: 0.6rem;
         }
 
-        .map-type img:last-child{
-            position: absolute;
-            left: -25%; 
-            bottom: -32px;
-            width: 150%;
-            opacity: 0;
-        }
-
         .map-type img:first-child{
             position: absolute;
             top: 0;
@@ -230,7 +338,7 @@ module.exports = `
         }
 
         .map-type:hover img:first-child{
-            border: 3px solid #1473E6;
+            
             opacity: 0.7;
         }
         
