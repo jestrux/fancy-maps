@@ -3,10 +3,13 @@ const UI = require("./ui/index");
 const initialState = {
     currentScreen: "pick",
     selectedLocation: "New York",
+    coords: [],
     fetchingLocation: false,
     fetchLocationError: false,
+    theme: "Basic",
     mapType: "light",
     zoomLevel: 8,
+    pitch: 0,
     mapImageUrl: "",
     width: 150,
     height: 90,
@@ -36,13 +39,36 @@ function setState(...args) {
 }
 
 function update(selection) {
-    const { Rectangle } = require("scenegraph");
     const itemSelected = selection && selection.items.length > 0;
-    const selectionIsValid = itemSelected && selection.items[0] instanceof Rectangle;
+    let selectionIsValid = true;
+    let invalidSelectionMessage = "";
+
+    if(itemSelected){
+        const node = selection.items[0];
+        const supportedNodes = ["Rectangle", "Polygon", "Path", "Ellipse"];
+        selectionIsValid = supportedNodes.includes(node.constructor.name);
+
+        if(!selectionIsValid){
+            invalidSelectionMessage = `Sorry, Fancy Maps doesn't work with <b>${node.constructor.name}s</b> `;
+            invalidSelectionMessage += `, please select a `;
+    
+            supportedNodes.forEach((node, index) => {
+                invalidSelectionMessage += `<strong><b>${node}</b></strong>`;
+                if(supportedNodes.length - index > 2)
+                    invalidSelectionMessage += ", ";
+                else if(supportedNodes.length - index === 2)
+                    invalidSelectionMessage += " or an ";
+            });
+
+            invalidSelectionMessage += " instead.";
+        }
+    }
+
 
     setState({
         itemSelected,
-        selectionIsValid
+        selectionIsValid,
+        invalidSelectionMessage
     });
 
     if(!state.currentScreen){

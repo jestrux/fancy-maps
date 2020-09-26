@@ -3,6 +3,21 @@ const fs = storage.localFileSystem;
 
 let data;
 
+const defaultThemes = {
+    // "mapbox://styles/mapbox/streets-v11",
+    // "mapbox://styles/mapbox/satellite-v9",
+    "Basic": "jestrux/ckfjayjhx1lpy19nv168t7r7z", // basic
+    "Light": "mapbox/light-v10",
+    "Dark": "mapbox/dark-v10",
+    "Spring": "jestrux/ckfjath4f0ibq19o3kta26x0d",
+    "Decimal": "jestrux/ckfj8co8w13x719mlwo181pru",
+    "Sky": "jestrux/ckfjb5dzl0i4q19lbziebguof",
+    "Blueprint": "jestrux/ckfj9eoiz4veb1armafkrpt6h",
+    "Galaxy": "jestrux/ckfj9j6bx1iqc19meeipe67f5",
+    "Bubblegum": "jestrux/ckfjb3gc64x0g1armwcpnrm9s",
+    "Golden": "jestrux/ckfjb97v91kec19me0em1p5uu"
+}
+
 /**
  * Downloads an image from the photoUrl and
  * stores it in a temp file and returns the file
@@ -202,34 +217,72 @@ class storageHelper {
     }
 }
 
-function getMapUrl({selectedLocation, zoomLevel, mapType, width, height, markerColor}){
-    /*
-    if(!this.data.coordinates)
-        return null;
-    const long = this.data.coordinates[0];
-    const lat = this.data.coordinates[1];
-    const zoom = 11.5;
-    const bearing = 0;
-    const pitch = 60;
-    const width = 200;
-    const height = 150;*/
-    // const token = "pk.eyJ1IjoiamVzdHJ1eCIsImEiOiJja2RwbTZjZWcyM2xoMnlsY2pqaWM5czV4In0.5a8wiZC7EHZ1PWoDWzYjMQ";
-    // const style = "styles/v1/mapbox/outdoors-v11";
-    // const marker = markerColor && markerColor.length ? `/pin-s-marker+${markerColor.replace('#', '')}(${long},${lat})` : '';
-    // const url = `https://api.mapbox.com/${style}/static${marker}/${long},${lat},${zoom},${bearing},${pitch}/${width}x${height}?access_token=${token}`;
+function getMapUrl(params){
+    const {
+        selectedLocation, zoomLevel, 
+        mapType, theme, coords,
+        width, height
+    } = params;
+
+    if(theme && theme.length && coords && coords.length)
+        return getMapImageByCoordinates(params);
 
     let url = "https://www.mapquestapi.com/staticmap/v5/map?key=WeIoVZDtlQwX3HwGpXiNjk12Ca9eQJUm";
     url += `&center=${encodeURIComponent(selectedLocation)}`;
     url += `&zoom=${parseInt(zoomLevel)}&type=${mapType}`;
-    url += `&size=${width},${height}`;
+    url += `&size=${parseInt(width)},${parseInt(height)}`;
 
     return url;
 }
 
+function getMapImageByCoordinates({
+    coords, 
+    theme = "Basic",
+    zoomLevel = 11.5,
+    width, 
+    height,
+    bearing = 0,
+    pitch = 0,
+}){
+    if(!coords)
+        return null;
+
+    const long = coords[0];
+    const lat = coords[1];
+
+    width = width < 500 ? width * 1.5 : width;
+    height = height < 500 ? height * 1.5 : height;
+
+    const styleUrl = "styles/v1/" + defaultThemes[theme];
+    const token = "pk.eyJ1IjoiamVzdHJ1eCIsImEiOiJja2RwbTZjZWcyM2xoMnlsY2pqaWM5czV4In0.5a8wiZC7EHZ1PWoDWzYjMQ";
+    const url = `https://api.mapbox.com/${styleUrl}/static/${long},${lat},${zoomLevel},${bearing},${pitch}/${parseInt(width)}x${parseInt(height)}?access_token=${token}`;
+    console.log("Map url: ", url);
+    return url;
+}
+
+async function getLocationCoordinates(location){
+    let url = `https://www.mapquestapi.com/geocoding/v1/address?key=WeIoVZDtlQwX3HwGpXiNjk12Ca9eQJUm&location=${encodeURIComponent(location)}`;
+
+    const response = await fetch(url);
+    const res = await response.json();
+
+    if(res.results && res.results[0] && res.results[0].locations){
+        if(res.results[0].locations[0] && res.results[0].locations[0].latLng)
+            return Object.values(res.results[0].locations[0].latLng).reverse();
+
+        return null;
+    }
+
+    return null;
+}
+
 module.exports = {
+    defaultThemes,
     downloadImage,
     parseStyles,
     getDimensions,
     storageHelper,
-    getMapUrl
+    getMapUrl,
+    getMapImageByCoordinates,
+    getLocationCoordinates
 };

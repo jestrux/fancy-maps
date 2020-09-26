@@ -3,7 +3,7 @@ module.exports = `
         <h2>Where are we travelling?</h2>
 
         <p class="mx-0 mt-1 text-md opacity-65">
-            Travel to a surprise location, choose from popular destinations, or enter a specific address / city to load in a map.
+            Travel to a surprise location, pick a popular destination, or enter a specific location.
         </p>
 
         <div class="button large mb-3" uxp-variant="cta" @click="pickSurpriseDestination">

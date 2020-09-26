@@ -107,22 +107,6 @@ module.exports = `
             margin: 0;
         }
 
-        #popularDestinations{
-            max-height: 360px;
-            overflow-y: auto;
-        }
-
-        .popular-city{
-            color: white;
-            font-size: 1.7rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-        }
-
-        .popular-city:hover{
-            opacity: 0.6;
-        }
-
         .popular-city img{
             width: 100%;
         }
@@ -139,9 +123,9 @@ module.exports = `
 
         #loader{
             position: fixed;
-            top: 0; left: 0;
-            bottom: 0; right: 0;
-            background: rgba(255, 255, 255, 0.7);
+            top: -16px; left: -16px;
+            bottom: -16px; right: -16px;
+            background: rgba(0, 0, 0, 0.3);
             z-index: 20;
         }
 
@@ -151,7 +135,7 @@ module.exports = `
         
         #loaderContent{
             background: #fff;
-            padding: 3rem;
+            padding: 0.5rem 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -159,20 +143,24 @@ module.exports = `
             color: #1473E6;
             position: relative;
             z-index: 1;
-            margin: -1rem;
         }
 
         #loaderContent p{
-            margin: 1.3rem 0;
+            margin-top: -2px;
+            margin-bottom: 1rem;
             font-size: 1.2rem;
             line-height: 1.3em;
         }
 
-        #loader > img:last-child{
-            position: absolute;
-            left: -25%; 
-            top: 2%;
-            width: 150%;
+        #loaderContent p + div{
+            padding: 0.3rem 1.2rem;
+            padding-bottom: 0.35rem;
+            color: #777;
+            border: 2px solid #ccc;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
         h1{
@@ -234,12 +222,49 @@ module.exports = `
         }
 
         .ui-itemSelected-true #warning,
-        .ui-itemSelected-false #app{
+        .ui-selectionIsValid-false #warning,
+        .ui-selectionIsValid-true #invalidSelection,
+        .ui-itemSelected-false #app,
+        .ui-selectionIsValid-false #app{
             display: none;
+        }
+
+        #invalidSelection strong{
+            color: #1473E6
         }
         
         .ui-currentScreen-customize #pickScreen,
         .ui-currentScreen-pick #customizeScreen{
+            display: none;
+        }
+
+        #pickScreen{
+            height: 100%;
+            height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #popularDestinations{
+            flex: 1;
+            max-height: 360px;
+            overflow-y: auto;
+        }
+
+        .popular-city{
+            color: white;
+            font-size: 1.7rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .popular-city:hover{
+            opacity: 0.6;
+        }
+
+        .ui-fetchingLocation-false #coordinatesLoader,
+        .ui-fetchingLocation-true #customizeFields{
             display: none;
         }
 
@@ -311,20 +336,26 @@ module.exports = `
         }
 
         #mapTypes{
-            margin-right: -0.6rem;
-            margin-bottom: 2rem;
+            margin-right: -0.3rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            max-height: 150px;
+            overflow-y: auto;
         }
 
         .map-type{
             position: relative;
-            flex: 1;
             justify-content: center;
             background: #ddd;
-            padding-bottom: 23.333%;
-            margin-right: 0.6rem;
+            padding-bottom: calc(23.333% - 0.3rem);
+            flex-shrink: 0;
+            min-width: calc(33.333% - 0.3rem);
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
         }
 
-        .map-type img:first-child{
+        .map-type img{
             position: absolute;
             top: 0;
             left: 0;
@@ -333,18 +364,18 @@ module.exports = `
             object-fit: cover;
             object-position: center;
             z-index: 1;
-            border: 3px solid transparent;
+            border: 3px solid white;
             border-radius: 3px;
         }
 
-        .map-type:hover img:first-child{
-            
+        .map-type:hover img{
             opacity: 0.7;
         }
         
         .ui-mapType-light #mapTypeLight img,
         .ui-mapType-dark #mapTypeDark img,
-        .ui-mapType-sat #mapTypeSat img{
+        .ui-mapType-sat #mapTypeSat img,
+        .map-type.current img{
             opacity: 1;
             border-color: #1473E6;
         }

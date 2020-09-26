@@ -1,8 +1,11 @@
 const CSS = require("./css");
 const pickScreen = require("./pick-screen");
+// const customizeScreen = require("./customize-screen");
+const customizeScreen = require("./customize-screen-mapbox");
 const cities = require("./cities");
-const { getMapUrl } = require("../utils");
-const customizeScreen = require("./customize-screen");
+const { getMapUrl, getLocationCoordinates, 
+    getMapImageByCoordinates, defaultThemes 
+} = require("../utils");
 
 function UI({state, setState, onApply}) {
     const HTML =`
@@ -19,15 +22,21 @@ function UI({state, setState, onApply}) {
                 <img width="100%" src="images/empty-space.png" alt="..." />
             </div>
 
+            <div id="invalidSelection" class="text-center">
+                <p x-html="invalidSelectionMessage" style="margin: 1rem 0; font-size: 0.9rem; line-height: 1.8"></p>
+            </div>
+
             <div id="loader">
                 <div id="loaderContent" class="text-center">
-                    <img width="40px" src="images/loader.png" alt="..." />
+                    <img width="80px" src="images/spinner.gif" />
                     <p>
                         Heading to your destination...
                     </p>
+
+                    <div class="pt-2 text-center" @click="setState('loading', false)">
+                        Cancel Trip
+                    </div>
                 </div>
-                
-                <img src="images/shadow.png" />
             </div>
         </div>
     `;
@@ -37,21 +46,42 @@ function UI({state, setState, onApply}) {
 
     this.state = state;
 
+    this.fetchLocationCoordinates = async (location) => {
+        this.state.coords = [];
+        try {
+            this.methods.setState('fetchingLocation', true);
+            const coords = await getLocationCoordinates(location);
+            this.methods.setState({
+                fetchingLocation: false,
+                coords
+            });
+            console.log("Location coordinates: ", coords);
+        } catch (error) {
+            this.methods.setState('fetchingLocation', false);
+            console.log("Error fetching coordinates", error);
+        }
+    }
+
     this.methods = {
         setState,
         onApply,
         submitLocation: () => {
             setState('currentScreen', 'customize');
+            this.fetchLocationCoordinates(this.state.selectedLocation);
         },
         pickSurpriseDestination: () => {
             function shuffle(array) {
                 return [...array].sort(_ => Math.random() - 0.5);
             }
 
+            const location = shuffle(cities)[0];
+
             setState({
-                'selectedLocation': shuffle(cities)[0],
+                'selectedLocation': location,
                 'currentScreen': 'customize',
             });
+
+            this.fetchLocationCoordinates(this.state.selectedLocation);
         },
         changeLocation: () => {
             setState('currentScreen', 'pick');
@@ -70,6 +100,7 @@ function UI({state, setState, onApply}) {
 
     setTimeout(() => {
         this.setupPopularCities();
+        this.setupThemes();
     }, 70);
 }
 
@@ -94,8 +125,37 @@ UI.prototype.setupPopularCities = function(){
                 'selectedLocation': city,
                 'currentScreen': 'customize'
             });
+
+            this.fetchLocationCoordinates(city);
         }
         popularDestinations.appendChild(destination);
+    });
+}
+
+UI.prototype.setupThemes = function(){
+    const themesWrapper = document.querySelector("#mapTypes");
+    const themeNames = Object.keys(defaultThemes);
+
+    themeNames.forEach((theme) => {
+        const themeItem = document.createElement("div");
+        let className = "map-type";
+        if(theme === this.state.theme)
+            className+= " current";
+
+        themeItem.className = className;
+        themeItem.innerHTML = `<img src="images/themes/${theme.toLowerCase()}.png" />`;
+        // <span class="absolute inset-0 flex center-center z-10 m-auto">
+        //     ${name}
+        // </span>
+        themeItem.onclick = () => {
+            const currentlySelected = document.querySelector(".map-type.current");
+            if(currentlySelected)
+                currentlySelected.classList.remove("current");
+
+            themeItem.classList.add("current");
+            this.methods.setState("theme", theme);
+        }
+        themesWrapper.appendChild(themeItem);
     });
 }
 
@@ -117,8 +177,8 @@ UI.prototype.setupEventListeners = function(){
     });
 }
 
-UI.prototype.applyDataBinding = function(key, value){
-    const matchingNodes = Array.from(this.panel.querySelectorAll(`[x-model="${key}"], [x-text="${key}"], [x-src="${key}"]`));
+UI.prototype.applyDataBinding = async function(key, value){
+    const matchingNodes = Array.from(this.panel.querySelectorAll(`[x-model="${key}"], [x-text="${key}"], [x-html="${key}"], [x-src="${key}"]`));
     
     if(matchingNodes.length){
         matchingNodes.forEach(node => {
@@ -126,6 +186,8 @@ UI.prototype.applyDataBinding = function(key, value){
                 node.value = value;
             else if(node.hasAttribute('x-text'))
                 node.textContent = value;
+            else if(node.hasAttribute('x-html'))
+                node.innerHTML = value;
             else if(node.hasAttribute('x-src')){
                 node.src = "";
 
@@ -138,11 +200,10 @@ UI.prototype.applyDataBinding = function(key, value){
 
     this.state[key] = value;
 
-    const urlDeps = ["selectedLocation", "zoomLevel", "mapType"];
+    const urlDeps = ["selectedLocation", "zoomLevel", "pitch", "mapType", "theme", "coords"];
     
     if(urlDeps.includes(key)){
-        const {selectedLocation, zoomLevel, mapType} = this.state;
-        const url = getMapUrl({selectedLocation, zoomLevel, mapType, width: 400, height: 300});
+        let url = getMapUrl({...this.state, width: 400, height: 300});
         this.methods.setState('mapImageUrl', url);
     }
 }
