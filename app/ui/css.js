@@ -295,6 +295,10 @@ module.exports = `
             object-position: center;
         }
 
+        #fancyMaps.ui-loadingPreview-false #mapPreviewLoader{
+            display: none !important;
+        }
+
         #zoomLevel{
             margin-top: 2rem;
             margin-bottom: 0.6rem;
@@ -335,13 +339,19 @@ module.exports = `
             align-self: flex-end;
         }
 
-        #mapTypes{
+        #mapTypes,
+        #mapTypesDefault{
             margin-right: -0.3rem;
             margin-bottom: 0.6rem;
             display: flex;
             flex-wrap: wrap;
             max-height: 150px;
             overflow-y: auto;
+        }
+
+        #fancyMaps.ui-coords-null #mapTypes,
+        #fancyMaps:not(.ui-coords-null) #mapTypesDefault{
+            display: none !important;
         }
 
         .map-type{

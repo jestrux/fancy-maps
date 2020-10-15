@@ -13,7 +13,12 @@ module.exports = `
         <img id="coordinatesLoader" src="images/spinner.gif" width="60px" />
 
         <div id="customizeFields">
-            <img id="mapPreview" alt="..." x-src="mapImageUrl" />
+            <div class="relative flex center-center">
+                <img id="mapPreview" alt="..." x-src="mapImageUrl" 
+                    @load="setState('loadingPreview', false)"
+                />
+                <img id="mapPreviewLoader" class="absolute m-auto" src="images/spinner.gif" style="width: 60px; transform: translateX(-10px)" />
+            </div>
 
             <div id="zoomLevel">
                 <label>ZOOM LEVEL</label>
@@ -39,6 +44,18 @@ module.exports = `
             <label>MAP STYLE</label>
             <div id="mapTypes" class="row">
                 
+            </div>
+
+            <div id="mapTypesDefault" class="row">
+                <div class="map-type" id="mapTypeLight" @click="setState('mapType', 'light')">
+                    <img src="images/map-light.png" />
+                </div>
+                <div class="map-type" id="mapTypeDark" @click="setState('mapType', 'dark')">
+                    <img src="images/map-dark.png" />
+                </div>
+                <div class="map-type" id="mapTypeSat" @click="setState('mapType', 'sat')">
+                    <img src="images/map-sat.png" />
+                </div>
             </div>
 
             <hr />

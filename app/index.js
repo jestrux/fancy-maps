@@ -6,6 +6,7 @@ const initialState = {
     coords: [],
     fetchingLocation: false,
     fetchLocationError: false,
+    loadingPreview: false,
     theme: "Basic",
     mapType: "light",
     zoomLevel: 8,

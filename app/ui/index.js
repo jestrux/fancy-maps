@@ -160,19 +160,19 @@ UI.prototype.setupThemes = function(){
 }
 
 UI.prototype.setupEventListeners = function(){
-    this.panel.querySelectorAll("[x-model], [@click], [@submit]").forEach(node => {
+    this.panel.querySelectorAll("[x-model], [@click], [@submit], [@load]").forEach(node => {
         if(node.hasAttribute('x-model')){
             const modelAttr = node.getAttribute("x-model");
             node.addEventListener("input", ({target}) => this.methods.setState(modelAttr, target.value));
         }
-        else if(node.hasAttribute('@click') || node.hasAttribute('@submit')){
-            const isButton = node.hasAttribute('@click');
-            const actionAttr = isButton ? node.getAttribute("@click") 
-                : node.getAttribute("@submit");
+        else{ //if(node.hasAttribute('@click') || node.hasAttribute('@submit')){
+            const actionsAttributes = ["@click", "@submit", "@load"];
+            const actionAttr = actionsAttributes.find(attribute => node.hasAttribute(attribute));
+            const actionValue = node.getAttribute(actionAttr);
 
-            const [functionName, argString] = actionAttr.replace(')', '').split('(');
+            const [functionName, argString] = actionValue.replace(')', '').split('(');
             const args = argString ? argString.replace(/'|\s/g, '').split(',') : [];
-            node.addEventListener(`${isButton ? 'click' : 'submit'}`, _ => this.methods[functionName](...args));
+            node.addEventListener(actionAttr.replace('@', ''), _ => this.methods[functionName](...args));
         }
     });
 }
@@ -204,7 +204,7 @@ UI.prototype.applyDataBinding = async function(key, value){
     
     if(urlDeps.includes(key)){
         let url = getMapUrl({...this.state, width: 400, height: 300});
-        this.methods.setState('mapImageUrl', url);
+        this.methods.setState({mapImageUrl: url, loadingPreview: true});
     }
 }
 
