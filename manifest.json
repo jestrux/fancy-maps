@@ -5,7 +5,7 @@
         "app": "XD",
         "minVersion": "21.0"
     },
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icons": [
         {
             "width": 24,
@@ -21,8 +21,8 @@
     "uiEntryPoints": [
         {
             "type": "panel",
-            "label": "Enlarge a Rectangle",
-            "panelId": "enlargeRectangle"
+            "label": "Set Map As Fill",
+            "panelId": "setMapAsFill"
         }
     ]
 }

@@ -38,29 +38,18 @@ async function downloadImage(photoUrl) {
  *
  * @param {url} url
  */
-function xhrBinary(url) {
-    return new Promise((resolve, reject) => {
-        const req = new XMLHttpRequest();
-        req.onload = () => {
-            if (req.status === 200) {
-                try {
-                    const arr = new Uint8Array(req.response);
-                    resolve(arr);
-                } catch (err) {
-                    reject('Couldnt parse response. ${err.message}, ${req.response}');
-                }
-            } else {
-                reject('Request had an error: ${req.status}');
-            }
-        }
-        req.onerror = function() {
-            reject('Network Request failed. Please ensure you have internet connectivitiy.');
-        };
-        req.onabort = reject;
-        req.open('GET', url, true);
-        req.responseType = "arraybuffer";
-        req.send();
-    });
+async function xhrBinary(url) {
+    const res = await fetch(url);
+    if(!res.ok){
+        const error = await res.json();
+        if(error.message)
+            throw Error(error.message);
+        else
+            throw Error(res.statusText);
+    }
+    const buffer = await res.arrayBuffer();
+    const arr = new Uint8Array(buffer);
+    return arr;
 }
 
 /**
@@ -253,10 +242,18 @@ function getMapImageByCoordinates({
     width = width < 500 ? width * 1.5 : width;
     height = height < 500 ? height * 1.5 : height;
 
+    if(width > 1280 || height > 1280){
+        console.log("Originals: ", width, height);
+
+        const aspectRatio = width / height;
+        width = 1280;
+        height = 1280 / aspectRatio
+    }
+
     const styleUrl = "styles/v1/" + defaultThemes[theme];
     const token = "pk.eyJ1IjoiamVzdHJ1eCIsImEiOiJja2RwbTZjZWcyM2xoMnlsY2pqaWM5czV4In0.5a8wiZC7EHZ1PWoDWzYjMQ";
     const url = `https://api.mapbox.com/${styleUrl}/static/${long},${lat},${zoomLevel},${bearing},${pitch}/${parseInt(width)}x${parseInt(height)}?access_token=${token}`;
-    console.log("Map url: ", url);
+    // console.log("Map url: ", url);
     return url;
 }
 

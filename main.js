@@ -1,6 +1,6 @@
 const { create, update, setState } = require("./app/index");
 const { downloadImage, getMapUrl, getDimensions } = require("./app/utils");
-const { error } = require("./xd-utils/index");
+const { dialogs } = require("./xd-utils/index");
 
 let panel;
 
@@ -15,16 +15,13 @@ function applyMap(state){
         setState("loading", true);
         try {
             const tempFile = await downloadImage(url);
-
             const imageFill = new ImageFill(tempFile);
             node.fill = imageFill;
             node.fillEnabled = true;
             setState("loading", false);
         } catch (errMsg) {
             setState({loading: false, error: errMsg});
-            console.log(errMsg);
-            await error("Error", errMsg);
-            return;
+            await dialogs.error("Error", errMsg.message);
         }
     });
 }
@@ -40,7 +37,7 @@ function show(event) {
 
 module.exports = {
     panels: {
-        enlargeRectangle: {
+        setMapAsFill: {
             show,
             update: () => {
                 const { selection } = require("scenegraph");

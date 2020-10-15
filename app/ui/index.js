@@ -55,7 +55,7 @@ function UI({state, setState, onApply}) {
                 fetchingLocation: false,
                 coords
             });
-            console.log("Location coordinates: ", coords);
+            // console.log("Location coordinates: ", coords);
         } catch (error) {
             this.methods.setState('fetchingLocation', false);
             console.log("Error fetching coordinates", error);
