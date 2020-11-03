@@ -22,9 +22,11 @@ module.exports = `
 
             <div id="zoomLevel">
                 <label>ZOOM LEVEL</label>
+                <div>
                 <input type="range" min=4 max=20
-                    x-model="zoomLevel"
+                    x-model="zoomLevel" style="width:100%"
                 />
+                </div>
                 <div id="zoomLevels" class="row">
                     <div>
                         <span></span>
