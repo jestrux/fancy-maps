@@ -258,16 +258,36 @@ function getMapImageByCoordinates({
 }
 
 async function getLocationCoordinates(location){
-    let url = `https://www.mapquestapi.com/geocoding/v1/address?key=WeIoVZDtlQwX3HwGpXiNjk12Ca9eQJUm&location=${encodeURIComponent(location)}`;
+    // let url = `https://www.mapquestapi.com/geocoding/v1/address?key=WeIoVZDtlQwX3HwGpXiNjk12Ca9eQJUm&location=${encodeURIComponent(location)}`;
+    // const response = await fetch(url);
+    // const res = await response.json();
+    // if(res.results && res.results[0] && res.results[0].locations){
+    //     if(res.results[0].locations[0] && res.results[0].locations[0].latLng)
+    //         return Object.values(res.results[0].locations[0].latLng).reverse();
+
+    //     return null;
+    // }
+
+    let url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`;
+
+    console.log(url);
 
     const response = await fetch(url);
     const res = await response.json();
+    
 
-    if(res.results && res.results[0] && res.results[0].locations){
-        if(res.results[0].locations[0] && res.results[0].locations[0].latLng)
-            return Object.values(res.results[0].locations[0].latLng).reverse();
+    if(res && res.length){
+        let place = res.find(({type}) => type == "administrative");
+        if(!place){
+            const placeTypes = [
+                "state", "city", "postcode", "county", "ward", "state_district", "country"
+            ];
+            place = res.find(({type}) => placeTypes.includes(type));
+        }
+            
+        const {lon, lat} = place || res[0];
 
-        return null;
+        return [lon, lat];
     }
 
     return null;
