@@ -270,10 +270,19 @@ async function getLocationCoordinates(location){
 
     let url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`;
 
-    console.log(url);
-
-    const response = await fetch(url);
-    const res = await response.json();
+    let res;
+    try {
+        const response = await fetch(url);
+        res = await response.json();
+    } catch (error) {
+        const response = await fetch(url,  {
+            method: 'GET',
+            headers: { 
+                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0',
+            }
+        });
+        res = await response.json();
+    }
     
 
     if(res && res.length){
