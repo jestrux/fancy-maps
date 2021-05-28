@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fancy Maps XD Plugin</title>
+
+    <!-- <link href="styles.css" rel="stylesheet" /> -->
+
+    <style>
+        /**************************\
+            Basic Modal Styles
+        \**************************/
+        .modal{position:relative;z-index:80}.modal__overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:center}.modal__container{background-color:#fff;width:100vw;max-width:600px;max-height:100vh;border-radius:4px;overflow-y:auto;box-sizing:border-box}.modal__header{display:flex;justify-content:space-between;align-items:center}.modal__title{margin-top:0;margin-bottom:0;font-weight:600;font-size:1.25rem;line-height:1.25;color:#00449e;box-sizing:border-box}.modal__close{background:0 0;border:0}.modal__header .modal__close:before{content:"\2715"}.modal__content{margin-top:2rem;margin-bottom:2rem;line-height:1.5;color:rgba(0,0,0,.8)}.modal__btn{font-size:.875rem;padding-left:1rem;padding-right:1rem;padding-top:.5rem;padding-bottom:.5rem;background-color:#e6e6e6;color:rgba(0,0,0,.8);border-radius:.25rem;border-style:none;border-width:0;cursor:pointer;-webkit-appearance:button;text-transform:none;overflow:visible;line-height:1.15;margin:0;will-change:transform;-moz-osx-font-smoothing:grayscale;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform:translateZ(0);transform:translateZ(0);transition:-webkit-transform .25s ease-out;transition:transform .25s ease-out;transition:transform .25s ease-out,-webkit-transform .25s ease-out}.modal__btn:focus,.modal__btn:hover{-webkit-transform:scale(1.05);transform:scale(1.05)}.modal__btn-primary{background-color:#00449e;color:#fff}@keyframes mmfadeIn{from{opacity:0}to{opacity:1}}@keyframes mmfadeOut{from{opacity:1}to{opacity:0}}@keyframes mmslideIn{from{transform:translateY(15%)}to{transform:translateY(0)}}@keyframes mmslideOut{from{transform:translateY(0)}to{transform:translateY(-10%)}}.micromodal-slide{display:none}.micromodal-slide.is-open{display:block}.micromodal-slide[aria-hidden=false] .modal__overlay{animation:mmfadeIn .3s cubic-bezier(0,0,.2,1)}.micromodal-slide[aria-hidden=false] .modal__container{animation:mmslideIn .3s cubic-bezier(0,0,.2,1)}.micromodal-slide[aria-hidden=true] .modal__overlay{animation:mmfadeOut .3s cubic-bezier(0,0,.2,1)}.micromodal-slide[aria-hidden=true] .modal__container{animation:mmslideOut .3s cubic-bezier(0,0,.2,1)}.micromodal-slide .modal__container,.micromodal-slide .modal__overlay{will-change:transform}
+        
+        /*! tailwindcss v2.1.1 | MIT License | https://tailwindcss.com *//*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+        *,::after,::before{box-sizing:border-box}:root{-moz-tab-size:4;-o-tab-size:4;tab-size:4}html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}button{background-color:transparent;background-image:none}button:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}fieldset{margin:0;padding:0}ol,ul{list-style:none;margin:0;padding:0}html{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";line-height:1.5}body{font-family:inherit;line-height:inherit}*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}hr{border-top-width:1px}img{border-style:solid}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input:-ms-input-placeholder,textarea:-ms-input-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}table{border-collapse:collapse}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}button,input,optgroup,select,textarea{padding:0;line-height:inherit;color:inherit}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}*{--tw-shadow:0 0 #0000;--tw-ring-inset:var(--tw-empty, );/*!*//*!*/--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59, 130, 246, 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000}.container{width:100%}@media (min-width:640px){.container{max-width:640px}}@media (min-width:768px){.container{max-width:768px}}@media (min-width:1024px){.container{max-width:1024px}}@media (min-width:1280px){.container{max-width:1280px}}@media (min-width:1536px){.container{max-width:1536px}}.relative{position:relative}.absolute{position:absolute}.right-0{right:0}.top-0{top:0}.top-2\.5{top:.625rem}.right-2\.5{right:.625rem}.top-2{top:.5rem}.right-2{right:.5rem}.z-20{z-index:20}.mx-auto{margin-left:auto;margin-right:auto}.ml-3{margin-left:.75rem}.mr-6{margin-right:1.5rem}.mr-5{margin-right:1.25rem}.mb-6{margin-bottom:1.5rem}.mb-5{margin-bottom:1.25rem}.mt-1{margin-top:.25rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mr-3{margin-right:.75rem}.ml-6{margin-left:1.5rem}.mt-4{margin-top:1rem}.mt-2{margin-top:.5rem}.mb-4{margin-bottom:1rem}.mb-1{margin-bottom:.25rem}.mt-3{margin-top:.75rem}.flex{display:flex}.inline-block{display:inline-block}.inline-flex{display:inline-flex}.block{display:block}.grid{display:grid}.h-screen{height:100vh}.h-8{height:2rem}.h-5{height:1.25rem}.h-full{height:100%}.h-6{height:1.5rem}.h-1\.5{height:.375rem}.h-1{height:.25rem}.w-6{width:1.5rem}.w-1\.5{width:.375rem}.w-1{width:.25rem}.flex-1{flex:1 1 0%}.flex-shrink-0{flex-shrink:0}.cursor-pointer{cursor:pointer}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}.justify-end{justify-content:flex-end}.gap-3{gap:.75rem}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.rounded-full{border-radius:9999px}.rounded-md{border-radius:.375rem}.rounded-2xl{border-radius:1rem}.rounded-xl{border-radius:.75rem}.rounded-lg{border-radius:.5rem}.border{border-width:1px}.border-2{border-width:2px}.border-none{border-style:none}.border-gray-500{--tw-border-opacity:1;border-color:rgba(107,114,128,var(--tw-border-opacity))}.border-gray-800{--tw-border-opacity:1;border-color:rgba(31,41,55,var(--tw-border-opacity))}.border-gray-300{--tw-border-opacity:1;border-color:rgba(209,213,219,var(--tw-border-opacity))}.border-green-700{--tw-border-opacity:1;border-color:rgba(4,120,87,var(--tw-border-opacity))}.border-blue-500{--tw-border-opacity:1;border-color:rgba(59,130,246,var(--tw-border-opacity))}.border-opacity-30{--tw-border-opacity:0.3}.bg-black{--tw-bg-opacity:1;background-color:rgba(0,0,0,var(--tw-bg-opacity))}.bg-transparent{background-color:transparent}.bg-gray-100{--tw-bg-opacity:1;background-color:rgba(243,244,246,var(--tw-bg-opacity))}.bg-gray-200{--tw-bg-opacity:1;background-color:rgba(229,231,235,var(--tw-bg-opacity))}.bg-green-50{--tw-bg-opacity:1;background-color:rgba(236,253,245,var(--tw-bg-opacity))}.bg-green-700{--tw-bg-opacity:1;background-color:rgba(4,120,87,var(--tw-bg-opacity))}.bg-blue-500{--tw-bg-opacity:1;background-color:rgba(59,130,246,var(--tw-bg-opacity))}.bg-opacity-80{--tw-bg-opacity:0.8}.bg-opacity-75{--tw-bg-opacity:0.75}.bg-gradient-to-br{background-image:linear-gradient(to bottom right,var(--tw-gradient-stops))}.from-blue-500{--tw-gradient-from:#3b82f6;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to, rgba(59, 130, 246, 0))}.to-green-700{--tw-gradient-to:#047857}.object-cover{-o-object-fit:cover;object-fit:cover}.p-1{padding:.25rem}.p-3{padding:.75rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.px-4{padding-left:1rem;padding-right:1rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.px-1{padding-left:.25rem;padding-right:.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pb-8{padding-bottom:2rem}.pt-6{padding-top:1.5rem}.pb-6{padding-bottom:1.5rem}.pl-8{padding-left:2rem}.pr-7{padding-right:1.75rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-5xl{font-size:3rem;line-height:1}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-thin{font-weight:100}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-tight{line-height:1.25}.tracking-widest{letter-spacing:.1em}.tracking-wide{letter-spacing:.025em}.text-white{--tw-text-opacity:1;color:rgba(255,255,255,var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgba(107,114,128,var(--tw-text-opacity))}.text-gray-600{--tw-text-opacity:1;color:rgba(75,85,99,var(--tw-text-opacity))}.text-green-700{--tw-text-opacity:1;color:rgba(4,120,87,var(--tw-text-opacity))}.text-black{--tw-text-opacity:1;color:rgba(0,0,0,var(--tw-text-opacity))}.text-opacity-75{--tw-text-opacity:0.75}.underline{text-decoration:underline}.opacity-75{opacity:.75}.opacity-50{opacity:.5}.shadow{--tw-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.1),0 1px 2px 0 rgba(0, 0, 0, 0.06);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.transition{transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms}.ease-out{transition-timing-function:cubic-bezier(0,0,.2,1)}.hover\:bg-white:hover{--tw-bg-opacity:1;background-color:rgba(255,255,255,var(--tw-bg-opacity))}.hover\:bg-opacity-25:hover{--tw-bg-opacity:0.25}.hover\:bg-opacity-20:hover{--tw-bg-opacity:0.2}.hover\:underline:hover{text-decoration:underline}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}
+    </style>
+
+    <!-- <link href="https://unpkg.com/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet" /> -->
+
+    <style>
+        h1 svg{
+            height: 60px;
+        }
+
+        label {
+            margin: 10px 0;
+            width: 100%;
+            position: relative;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        input {
+            display: block;
+            margin-top: 0.2em;
+            background-color: white;
+            font-size: 1rem;
+            padding: 0.4rem 0.6rem;
+            border: 1px solid rgba(22, 41, 69, 0.4);
+            /* border: none; */
+            box-shadow: inset 0 0 3px rgb(0 0 0 / 20%);
+            width: 100%;
+            /* min-width: 220px; */
+            outline: none;
+            border-radius: 5px;
+            transition: all 0.35s ease-in-out;
+        }
+
+        #subscriptionPlans.basic #premiumButton, 
+        #subscriptionPlans.premium #basicButton{
+            background: #f0f0f0;
+            color: #888;
+            border-color: #c5c5c5;
+        }
+
+        #subscriptionPlans.basic #premiumButton:hover,
+        #subscriptionPlans.premium #basicButton:hover{
+            background: #fff;
+        }
+
+        #subscriptionPlans.basic #premiumButton span, 
+        #subscriptionPlans.premium #basicButton span{
+            opacity: 0;
+        }
+
+        #subscriptionPlans.basic #premiumFeatures, 
+        #subscriptionPlans.premium #basicFeatures{
+            display: none;
+        }
+
+        @media (min-width:769px){
+            .for-mob{
+                display: none !important;
+            }
+        }
+
+        @media (max-width:768px){
+            .for-lg{display: none !important;}
+
+            .responsive-flex{
+                flex-direction: column;
+            }
+
+            header{
+                padding: 0 1rem;
+                margin-top: -0.4rem;
+            }
+
+            main{
+                margin-top: 0.3rem;
+                flex: none !important;
+                flex-direction: column-reverse;
+                justify-content: flex-start !important;
+            }
+
+            video{
+                max-height: 200px !important;
+                margin-bottom: 1rem;
+            }
+
+            h1{
+                max-width: 100vw !important;
+                margin-top: 0.5rem;
+                margin-bottom: 0.7rem !important;
+                padding: 0 1.5rem;
+                font-size: 1.4rem !important;
+                line-height: 1.6 !important;
+                font-weight: 400 !important;
+            }
+
+            h1 svg{
+                height: 30px;
+            }
+
+            li{
+                padding: 0.5rem 1.5rem;
+                text-align: center;
+                font-size: 1rem;
+            }
+
+            li svg{
+                width: 1rem;
+                height: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col bg-black text-white">
+    <header class="py-5 text-center">
+        <div class="container mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img class="for-lg h-8 inline-block" src="logo.png" alt="" />
+                <img class="for-mob h-5 inline-block" src="logo.png" alt="" />
+                <span class="inline-block ml-3 for-lg text-2xl tracking-widest">Fancy Maps</span>
+                <span class="inline-block ml-3 for-mob text-lg">Fancy Maps</span>
+            </a>
+
+            <div class="for-lg flex items-center">
+                <!-- <a href="#" class="opacity-75 hover:underline mr-6">Terms of Use</a> -->
+                <!-- <a href="#" class="opacity-75 hover:underline mr-6">Privacy Policy</a> -->
+                <a href="https://adobe.com/go/xd_plugins_discover_plugin?pluginId=1f410050" class="py-2 px-4 bg-transparent hover:bg-white hover:bg-opacity-25 text-white text-sm border border-gray-500 focus:outline-none rounded-full">
+                    Install Plugin
+                </a>
+                <button onclick="startCheckout()" class="ml-3 py-2 px-4 bg-gradient-to-br from-blue-500 to-green-700 hover:bg-opacity-20 text-white text-sm border border-gray-500 focus:outline-none rounded-full"
+                    style="border-color: #0d8388;"
+                >
+                    Monthly Subscription
+                </button>
+            </div>
+
+            <!-- <div class="for-mob text-sm opacity-50 flex items-center text-white">
+                <a href="#" class="underline mr-5">Terms</a>
+                <a href="#" class="underline">Privacy</a>
+            </div> -->
+        </div>
+    </header>
+
+    <main class="flex-1 container mx-auto flex items-center justify-between">
+        <div class="pb-8">
+            <h1 class="for-lg text-5xl leading-tight mb-6 font-thin mb-5" style="max-width: 400px;">
+                Add a map to your  
+                <div class="flex">
+                    <svg class="mt-1 mr-2" fill="#fff" viewBox="0 0 181 44"><g data-name="Layer 2"><g data-name="UI UX Surface"><g data-name="Outline no shadow"><g data-name="Group 175492"><path fill="#470137" d="M9.712 0h25.705a9.712 9.712 0 019.712 9.712v24.576A9.712 9.712 0 0135.417 44H9.712A9.712 9.712 0 010 34.288V9.712A9.712 9.712 0 019.712 0z" data-name="Path 104683"/></g></g></g><g data-name="Outlined Mnemonics Logos"><g data-name="Group 175493"><path fill="#ff61f6" d="M23.723 11.572l-5.631 9.294 6.025 9.87a.309.309 0 01.03.227c-.02.071-.09.026-.212.046h-4.3c-.3 0-.515-.011-.636-.213q-.606-1.181-1.211-2.347t-1.287-2.376q-.682-1.211-1.348-2.453h-.03q-.606 1.211-1.256 2.422t-1.287 2.406q-.636 1.2-1.3 2.377c-.081.182-.222.2-.424.2H6.709c-.08 0-.126.032-.136-.049a.3.3 0 01.046-.212l5.843-9.6-5.693-9.623c-.061-.081-.071-.146-.03-.2a.219.219 0 01.182-.075h4.268a.626.626 0 01.273.045.554.554 0 01.181.167q.545 1.211 1.212 2.422t1.347 2.391q.681 1.181 1.256 2.391h.03q.6-1.241 1.226-2.422t1.271-2.377q.651-1.2 1.256-2.376a.472.472 0 01.121-.2.436.436 0 01.242-.045h3.966a.173.173 0 01.21.126.173.173 0 01-.059.176z" data-name="Path 104674"/></g><g data-name="Group 175494"><path fill="#ff61f6" d="M32.412 31.401a9.378 9.378 0 01-4.041-.847 6.423 6.423 0 01-2.831-2.559 8.176 8.176 0 01-1.03-4.283 7.9 7.9 0 011.03-3.966 7.555 7.555 0 013-2.906 9.672 9.672 0 014.752-1.091c.1 0 .232.006.394.015s.353.025.575.046V9.845c0-.141.06-.212.182-.212h3.814a.161.161 0 01.182.137.138.138 0 010 .045v17.896q0 .516.046 1.12t.076 1.089a.313.313 0 01-.182.3 14.993 14.993 0 01-3.058.908 16.319 16.319 0 01-2.909.273zm1.846-3.754v-8.265a2.975 2.975 0 00-.5-.091q-.309-.031-.621-.03a4.677 4.677 0 00-2.119.485 4.133 4.133 0 00-1.589 1.393 4.161 4.161 0 00-.621 2.391 5.341 5.341 0 00.318 1.938 3.7 3.7 0 00.848 1.332 3.221 3.221 0 001.271.756 4.967 4.967 0 001.56.243q.423 0 .787-.031a3.2 3.2 0 00.666-.121z" data-name="Path 104675"/></g></g></g><g data-name="Group 175495"><path d="M63.514 26.429l-1.445 4.463a.327.327 0 01-.332.24h-3.492c-.212 0-.272-.121-.242-.3l6.023-17.4a5.473 5.473 0 00.3-1.838.2.2 0 01.18-.212h4.818c.151 0 .211.031.241.182l6.837 19.3c.059.15.03.271-.151.271h-3.914a.3.3 0 01-.331-.21l-1.536-4.493zm5.842-3.769c-.6-1.99-1.807-5.638-2.379-7.778h-.03c-.482 2.02-1.566 5.336-2.349 7.778z" data-name="Path 104676"/><path d="M76.608 23.775c0-4.311 3.222-7.929 8.732-7.929.241 0 .542.03.994.06V9.967a.191.191 0 01.212-.212h3.794c.151 0 .181.061.181.182v17.818a17.022 17.022 0 00.12 2.2c0 .151-.03.211-.211.271a15.116 15.116 0 01-5.933 1.207c-4.456.001-7.889-2.532-7.889-7.658zm9.726-4.281a3.115 3.115 0 00-1.114-.15 4.019 4.019 0 00-4.306 4.221c0 2.985 1.716 4.281 4.006 4.281a4.256 4.256 0 001.414-.181z" data-name="Path 104677"/><path d="M107.488 23.565c0 4.733-3.071 7.869-7.407 7.869-5.15 0-7.438-3.89-7.438-7.779 0-4.282 2.861-7.809 7.5-7.809 4.845 0 7.345 3.648 7.345 7.719zm-10.6.03c0 2.653 1.234 4.341 3.252 4.341 1.746 0 3.071-1.507 3.071-4.281 0-2.352-.963-4.311-3.252-4.311-1.744 0-3.071 1.568-3.071 4.255z" data-name="Path 104678"/><path d="M113.542 9.755c.241 0 .3.031.3.241v6.181a9.679 9.679 0 012.529-.332 6.9 6.9 0 017.225 7.177c0 5.639-4.457 8.412-9.034 8.412a15.754 15.754 0 01-4.727-.694.354.354 0 01-.181-.3V9.967c0-.151.059-.212.211-.212zm2.078 9.648a6.115 6.115 0 00-1.777.241v8.17a4.627 4.627 0 001.114.121 4.147 4.147 0 004.366-4.523c.001-2.743-1.595-4.009-3.703-4.009z" data-name="Path 104679"/><path d="M129.212 24.741c.15 1.718 1.355 3.135 4.307 3.135a9.317 9.317 0 003.7-.693c.091-.06.181-.03.181.151v2.865c0 .211-.06.3-.212.362a10.093 10.093 0 01-4.607.875c-5.661 0-7.649-3.89-7.649-7.628 0-4.161 2.56-7.96 7.288-7.96 4.548 0 6.353 3.527 6.353 6.512a9.7 9.7 0 01-.15 2.021.261.261 0 01-.242.241 27.924 27.924 0 01-3.1.121zm3.914-2.925a9.805 9.805 0 001.506-.06v-.21a2.451 2.451 0 00-2.56-2.383 2.854 2.854 0 00-2.891 2.653z" data-name="Path 104680"/><path d="M156.764 20.942l5.962 9.859a.2.2 0 01-.15.331h-4.277a.5.5 0 01-.512-.271c-1.325-2.352-2.651-4.7-4-7.176h-.03c-1.205 2.412-2.53 4.854-3.794 7.206a.405.405 0 01-.422.24h-4.065c-.212 0-.212-.181-.12-.3l5.781-9.589-5.661-9.557a.181.181 0 01.151-.3h4.246c.211 0 .3.031.391.242 1.2 2.381 2.62 4.763 3.854 7.146h.03c1.175-2.413 2.5-4.735 3.734-7.146a.4.4 0 01.422-.242h3.884c.211 0 .241.152.12.332z" data-name="Path 104681"/><path d="M164.197 11.655c0-.15.03-.21.212-.24.9-.031 3.191-.091 5.871-.091 7.2 0 10.72 4.041 10.72 9.619 0 7.206-5.54 10.25-10.659 10.25-1.988 0-5 0-5.963-.06-.12 0-.181-.09-.181-.3zm4.185 15.86c.6.03 1.084.061 1.777.061 3.945 0 6.534-2.383 6.534-6.574 0-4.04-2.589-6.03-6.444-6.03-.722 0-1.2 0-1.867.03z" data-name="Path 104682"/></g></svg>
+                    design
+                </div>
+                with just a few clicks.
+            </h1>
+
+            <h1 class="for-mob text-5xl leading-tight mb-6 font-thin mb-5" style="max-width: 400px;">
+                <div class="inline-flex">
+                    Add a map to your  
+                    <svg class="mt-1 ml-2" fill="#fff" viewBox="0 0 181 44"><g data-name="Layer 2"><g data-name="UI UX Surface"><g data-name="Outline no shadow"><g data-name="Group 175492"><path fill="#470137" d="M9.712 0h25.705a9.712 9.712 0 019.712 9.712v24.576A9.712 9.712 0 0135.417 44H9.712A9.712 9.712 0 010 34.288V9.712A9.712 9.712 0 019.712 0z" data-name="Path 104683"/></g></g></g><g data-name="Outlined Mnemonics Logos"><g data-name="Group 175493"><path fill="#ff61f6" d="M23.723 11.572l-5.631 9.294 6.025 9.87a.309.309 0 01.03.227c-.02.071-.09.026-.212.046h-4.3c-.3 0-.515-.011-.636-.213q-.606-1.181-1.211-2.347t-1.287-2.376q-.682-1.211-1.348-2.453h-.03q-.606 1.211-1.256 2.422t-1.287 2.406q-.636 1.2-1.3 2.377c-.081.182-.222.2-.424.2H6.709c-.08 0-.126.032-.136-.049a.3.3 0 01.046-.212l5.843-9.6-5.693-9.623c-.061-.081-.071-.146-.03-.2a.219.219 0 01.182-.075h4.268a.626.626 0 01.273.045.554.554 0 01.181.167q.545 1.211 1.212 2.422t1.347 2.391q.681 1.181 1.256 2.391h.03q.6-1.241 1.226-2.422t1.271-2.377q.651-1.2 1.256-2.376a.472.472 0 01.121-.2.436.436 0 01.242-.045h3.966a.173.173 0 01.21.126.173.173 0 01-.059.176z" data-name="Path 104674"/></g><g data-name="Group 175494"><path fill="#ff61f6" d="M32.412 31.401a9.378 9.378 0 01-4.041-.847 6.423 6.423 0 01-2.831-2.559 8.176 8.176 0 01-1.03-4.283 7.9 7.9 0 011.03-3.966 7.555 7.555 0 013-2.906 9.672 9.672 0 014.752-1.091c.1 0 .232.006.394.015s.353.025.575.046V9.845c0-.141.06-.212.182-.212h3.814a.161.161 0 01.182.137.138.138 0 010 .045v17.896q0 .516.046 1.12t.076 1.089a.313.313 0 01-.182.3 14.993 14.993 0 01-3.058.908 16.319 16.319 0 01-2.909.273zm1.846-3.754v-8.265a2.975 2.975 0 00-.5-.091q-.309-.031-.621-.03a4.677 4.677 0 00-2.119.485 4.133 4.133 0 00-1.589 1.393 4.161 4.161 0 00-.621 2.391 5.341 5.341 0 00.318 1.938 3.7 3.7 0 00.848 1.332 3.221 3.221 0 001.271.756 4.967 4.967 0 001.56.243q.423 0 .787-.031a3.2 3.2 0 00.666-.121z" data-name="Path 104675"/></g></g></g><g data-name="Group 175495"><path d="M63.514 26.429l-1.445 4.463a.327.327 0 01-.332.24h-3.492c-.212 0-.272-.121-.242-.3l6.023-17.4a5.473 5.473 0 00.3-1.838.2.2 0 01.18-.212h4.818c.151 0 .211.031.241.182l6.837 19.3c.059.15.03.271-.151.271h-3.914a.3.3 0 01-.331-.21l-1.536-4.493zm5.842-3.769c-.6-1.99-1.807-5.638-2.379-7.778h-.03c-.482 2.02-1.566 5.336-2.349 7.778z" data-name="Path 104676"/><path d="M76.608 23.775c0-4.311 3.222-7.929 8.732-7.929.241 0 .542.03.994.06V9.967a.191.191 0 01.212-.212h3.794c.151 0 .181.061.181.182v17.818a17.022 17.022 0 00.12 2.2c0 .151-.03.211-.211.271a15.116 15.116 0 01-5.933 1.207c-4.456.001-7.889-2.532-7.889-7.658zm9.726-4.281a3.115 3.115 0 00-1.114-.15 4.019 4.019 0 00-4.306 4.221c0 2.985 1.716 4.281 4.006 4.281a4.256 4.256 0 001.414-.181z" data-name="Path 104677"/><path d="M107.488 23.565c0 4.733-3.071 7.869-7.407 7.869-5.15 0-7.438-3.89-7.438-7.779 0-4.282 2.861-7.809 7.5-7.809 4.845 0 7.345 3.648 7.345 7.719zm-10.6.03c0 2.653 1.234 4.341 3.252 4.341 1.746 0 3.071-1.507 3.071-4.281 0-2.352-.963-4.311-3.252-4.311-1.744 0-3.071 1.568-3.071 4.255z" data-name="Path 104678"/><path d="M113.542 9.755c.241 0 .3.031.3.241v6.181a9.679 9.679 0 012.529-.332 6.9 6.9 0 017.225 7.177c0 5.639-4.457 8.412-9.034 8.412a15.754 15.754 0 01-4.727-.694.354.354 0 01-.181-.3V9.967c0-.151.059-.212.211-.212zm2.078 9.648a6.115 6.115 0 00-1.777.241v8.17a4.627 4.627 0 001.114.121 4.147 4.147 0 004.366-4.523c.001-2.743-1.595-4.009-3.703-4.009z" data-name="Path 104679"/><path d="M129.212 24.741c.15 1.718 1.355 3.135 4.307 3.135a9.317 9.317 0 003.7-.693c.091-.06.181-.03.181.151v2.865c0 .211-.06.3-.212.362a10.093 10.093 0 01-4.607.875c-5.661 0-7.649-3.89-7.649-7.628 0-4.161 2.56-7.96 7.288-7.96 4.548 0 6.353 3.527 6.353 6.512a9.7 9.7 0 01-.15 2.021.261.261 0 01-.242.241 27.924 27.924 0 01-3.1.121zm3.914-2.925a9.805 9.805 0 001.506-.06v-.21a2.451 2.451 0 00-2.56-2.383 2.854 2.854 0 00-2.891 2.653z" data-name="Path 104680"/><path d="M156.764 20.942l5.962 9.859a.2.2 0 01-.15.331h-4.277a.5.5 0 01-.512-.271c-1.325-2.352-2.651-4.7-4-7.176h-.03c-1.205 2.412-2.53 4.854-3.794 7.206a.405.405 0 01-.422.24h-4.065c-.212 0-.212-.181-.12-.3l5.781-9.589-5.661-9.557a.181.181 0 01.151-.3h4.246c.211 0 .3.031.391.242 1.2 2.381 2.62 4.763 3.854 7.146h.03c1.175-2.413 2.5-4.735 3.734-7.146a.4.4 0 01.422-.242h3.884c.211 0 .241.152.12.332z" data-name="Path 104681"/><path d="M164.197 11.655c0-.15.03-.21.212-.24.9-.031 3.191-.091 5.871-.091 7.2 0 10.72 4.041 10.72 9.619 0 7.206-5.54 10.25-10.659 10.25-1.988 0-5 0-5.963-.06-.12 0-.181-.09-.181-.3zm4.185 15.86c.6.03 1.084.061 1.777.061 3.945 0 6.534-2.383 6.534-6.574 0-4.04-2.589-6.03-6.444-6.03-.722 0-1.2 0-1.867.03z" data-name="Path 104682"/></g></svg>
+                </div>
+                design with just a few clicks.
+            </h1>
+    
+            <ul class="text-2xl font-hairline tracking-wide">
+                <li class="flex items-center py-1">
+                    <svg stroke="#03b1b9" class="mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    Search for location or address
+                </li>
+
+                <li class="flex items-center py-1">
+                    <svg stroke="#03b1b9" class="mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    Get A Random Location
+                </li>
+
+                <li class="flex items-center py-1">
+                    <svg stroke="#03b1b9" class="mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    Pick a popular destination
+                </li>
+
+                <li class="flex items-center py-1">
+                    <svg stroke="#03b1b9" class="mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    10 themes to pick from
+                </li>
+            </ul>
+
+            <a href="#" class="for-mob ml-6 mt-4 inline-block py-2 px-5 tracking-wide bg-transparent hover:bg-white hover:bg-opacity-25 text-white text-sm border-2 border-gray-800 focus:outline-none rounded-full">
+                Install Plugin
+            </a>
+
+            <button onclick="startCheckout()" class="for-mob ml-3 py-2 px-4 bg-gradient-to-br from-blue-500 to-green-700 hover:bg-opacity-20 text-white text-sm border border-gray-500 focus:outline-none rounded-full"
+                style="border-color: #0d8388;"
+            >
+                Monthly Subscription
+            </button>
+        </div>
+
+        <div class="rounded-md overflow-hidden">
+            <iframe width="800" height="500" src="https://www.youtube.com/embed/cW4wMP-G3As?controls=0" title="Fancy maps product demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- <video class="h-full object-cover" style="max-height: 450px;" src="video.mp4" poster="preview.png" controls></video> -->
+        </div>
+    </main>
+
+    <div id="newAppModal" class="modal micromodal-slide" aria-hidden="false">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close="">
+            <div style="width: 500px" class="modal__container relative overflow-hidden rounded-2xl flex flex-col justify-center bg-gray-100" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <!-- <div class="flex flex-col items-center justify-center relative bg-gradient-to-br from-blue-500 to-green-700 text-white py-4">
+                    <svg class="h-6 w-6 text-white" viewBox="0 0 64.64 64.628"><g data-name="Icon ionic-ios-apps" fill="currentColor"><path data-name="Path 44" d="M62.417 12.395L37.276.934a13.616 13.616 0 00-9.912 0L2.238 12.395c-2.962 1.346-2.962 3.551 0 4.9l24.907 11.36a14.308 14.308 0 0010.367 0l24.905-11.363c2.964-1.346 2.964-3.551 0-4.897z"></path><g data-name="Group 205"><path data-name="Path 45" d="M27.145 52.381l-16.8-7.657a2.731 2.731 0 00-2.238 0l-5.869 2.678c-2.962 1.346-2.962 3.551 0 4.9l24.907 11.36a14.308 14.308 0 0010.367 0l24.905-11.365c2.962-1.346 2.962-3.551 0-4.9l-5.873-2.676a2.731 2.731 0 00-2.238 0l-16.8 7.657a14.308 14.308 0 01-10.361.003z"></path><path data-name="Path 46" d="M62.419 29.897l-5.335-2.423a2.692 2.692 0 00-2.221 0l-18.176 8.229a14.857 14.857 0 01-8.734 0L9.778 27.474a2.692 2.692 0 00-2.221 0l-5.336 2.423c-2.962 1.346-2.962 3.551 0 4.9l24.907 11.36a14.308 14.308 0 0010.367 0l24.907-11.36c2.979-1.349 2.979-3.554.017-4.9z"></path></g></g></svg>
+    
+                    <h1 class="mt-2 text-lg block text-center tracking-wide">
+                        Monthly Subscription
+                    </h1>
+                    
+                    <button class="focus:outline-none border-none rounded-full bg-transparent absolute z-20 right-0 top-0 mt-2 mr-2 p-1" onclick="closeNewAppModal()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div> -->
+                <button class="text-gray-500 focus:outline-none border border-gray-300 rounded-full bg-transparent absolute z-20 right-0 top-0 mt-2 mr-2 p-1" onclick="closeNewAppModal()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+
+                
+                <div class="pt-6 pb-6 pl-8 pr-7">
+                    <h1 class="mb-4 text-gray-600 font-semibold text-xl tracking-wide">
+                        Monthly Subscription
+                    </h1>
+                    <p class="text-gray-500 mb-1">
+                        What's your preferred plan?
+                        <!-- The Fancy Maps monthly subscription gives you access to high quality themes, map elements, map screens all with lots of customization options and multiple variants. -->
+                    </p>
+
+                    <div id="subscriptionPlans" class="premium bg-gray-200 bg-opacity-80 border border-gray-300 p-3 rounded-xl">
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="basicButton" class="font-semibold cursor-pointer focus:outline-none uppercase tracking-wide text-center rounded-lg bg-green-50 border-2 border-green-700 border-opacity-30 text-green-700 text-opacity-75 py-3 px-5 text-lg relative"
+                                onclick="setPlan('basic')"
+                            >
+                                Basic
+                                <span class="rounded-full bg-green-700 bg-opacity-75 w-1.5 h-1.5 absolute top-2.5 right-2.5"></span>
+                            </button>
+    
+                            <button id="premiumButton" class="font-semibold cursor-pointer focus:outline-none uppercase tracking-wide text-center rounded-lg bg-green-50 border-2 border-green-700 border-opacity-30 text-green-700 text-opacity-75 py-3 px-5 text-lg relative"
+                                onclick="setPlan('premium')"
+                            >
+                                Premium
+                                <span class="rounded-full bg-green-700 bg-opacity-75 w-1.5 h-1.5 absolute top-2.5 right-2.5"></span>
+                            </button>
+                        </div>
+
+                        <div class="mt-2 px-1 text-sm text-gray-500">
+                            <div id="basicFeatures">
+                                <p class="font-semibold mb-1">Basic Features:</p>
+                                <p>
+                                    - 200 maps per day,
+                                    - Support for repeat grids,
+                                    - Default themes,
+                                    - Satellite view,
+                                    - Show marker
+                                </p>
+                            </div>
+
+                            <div id="premiumFeatures">
+                                <p class="font-semibold mb-1">Premium Features:</p>
+                                <p>
+                                    - Unlimited maps,
+                                    - Support for repeat grids,
+                                    - Default themes,
+                                    - Premium themes,
+                                    - Satellite view,
+                                    - Show marker,
+                                    - Customize marker color,
+                                    - Map elements,
+                                    - Map elements variants,
+                                    - Map screens,
+                                    - Map screens variants
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <form action="#" onsubmit="doCheckout(event)">
+                        <div class="overflow-y-auto relative mt-3">
+                            <p class="text-gray-500 mt-1">
+                                Where do you want to receive your subscription details?
+                            </p>
+                            <div class="input-group flex-1 flex-shrink-0 mb-4">
+                                <!-- <label class="text-gray-500">
+                                    Where do you want to receive your subscription details?
+                                </label> -->
+                                <input class="text-black" placeholder="Email your email here" required name="email" type="email" />
+                            </div>
+                            
+                            <div class="flex justify-end">
+                                <button type="submit" class="py-2 px-6 bg-gradient-to-br bg-blue-500 text-white text-sm border border-blue-500 focus:outline-none rounded-full">
+                                    <span>Subscribe</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+
+    <script>
+        var selectedPlan = 'premium';
+
+        Paddle.Setup({ vendor: 127890 });
+
+        function startCheckout() {
+            MicroModal.show('newAppModal');
+        }
+
+        function doCheckout(e) {
+            e.preventDefault();
+            closeNewAppModal();
+            var form = e.target;
+            var data = new FormData(form);
+            var planCodes = {
+                "basic": 648331,
+                "premium": 654170,
+            }
+
+            Paddle.Checkout.open({ product: planCodes[selectedPlan], email: data.get('email') });
+        }
+    
+        function setPlan(plan){
+            selectedPlan = plan;
+            var subscriptionPlansWrapper = document.querySelector("#subscriptionPlans");
+            subscriptionPlansWrapper.classList.remove('basic', 'premium');
+            subscriptionPlansWrapper.classList.add(plan);
+        }
+
+        function closeNewAppModal(){
+            MicroModal.close('newAppModal');
+        }
+    
+        window.addEventListener("load", function(){
+            MicroModal.init({
+                closeTrigger: 'data-custom-close',
+                openClass: 'is-open',
+                disableScroll: true,
+                disableFocus: false,
+                awaitOpenAnimation: false,
+                awaitCloseAnimation: false,
+                debugMode: true
+            });
+        });
+    </script>
+</body>
+</html>
