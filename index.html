@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fancy Maps XD Plugin</title>
+    <link href="icon.png" rel="shortcut icon" type="image/png" sizes="16x16" />
 
     <!-- <link href="styles.css" rel="stylesheet" /> -->
 
@@ -240,9 +241,15 @@
                     <h1 class="mb-4 text-gray-600 font-semibold text-xl tracking-wide">
                         Monthly Subscription
                     </h1>
-                    <p class="text-gray-500 mb-1">
+
+                    <div class="" style="padding: 0.5rem 0.9rem; padding-top: 0.6rem; font-size: 16px; border-radius: 3px; border: solid #2277db; border-width: 0 0 0 4px; background-color: #dfecf9; color: #506373;">
+                        <p class="stext-gray-500" style="margin-bottom: 0.6rem;">
+                            By subscribing you get access to high quality themes, map elements and coming soon variants.
+                        </p>
+                    </div>
+                    
+                    <!-- <p class="text-gray-500 mb-1">
                         What's your preferred plan?
-                        <!-- The Fancy Maps monthly subscription gives you access to high quality themes, map elements, map screens all with lots of customization options and multiple variants. -->
                     </p>
 
                     <div id="subscriptionPlans" class="premium bg-gray-200 bg-opacity-80 border border-gray-300 p-3 rounded-xl">
@@ -291,11 +298,11 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
         
                     <form action="#" onsubmit="doCheckout(event)">
-                        <div class="overflow-y-auto relative mt-3">
-                            <p class="text-gray-500 mt-1">
+                        <div class="overflow-y-auto relative mt-3" style="margin-top: 0.7rem;">
+                            <p class="text-gray-600 mt-1">
                                 Where do you want to receive your subscription details?
                             </p>
                             <div class="input-group flex-1 flex-shrink-0 mb-4">
@@ -322,7 +329,7 @@
     <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
 
     <script>
-        var selectedPlan = 'premium';
+        var selectedPlan = 'basic';
 
         Paddle.Setup({ vendor: 127890 });
 
